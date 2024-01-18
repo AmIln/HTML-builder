@@ -8,7 +8,11 @@ rl.prompt();
 
 rl.on('line', function(text) {
     if (text.trim() === 'stop') rl.close()
-    fs.appendFileSync(textFile, text);
+    fs.appendFile(textFile, text, (err) => {
+        if (err) {
+            throw err;
+        };
+    });
     rl.prompt();
 }).on('close', function() {
     console.log('всего хо-ро-ше-го');
