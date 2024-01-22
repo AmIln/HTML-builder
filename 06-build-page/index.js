@@ -8,6 +8,7 @@ const dirname = path.resolve() + '\\06-build-page\\project-dist';
 const header = path.resolve() + '\\06-build-page\\components\\header.html';
 const footer = path.resolve() + '\\06-build-page\\components\\footer.html';
 const articles = path.resolve() + '\\06-build-page\\components\\articles.html';
+const about = path.resolve() + '\\06-build-page\\components\\about.html';
 const assets = path.resolve() + '\\06-build-page\\assets';
 const newAssets = path.resolve() + '\\06-build-page\\project-dist\\assets';
 
@@ -90,12 +91,24 @@ function createHTML() {
                 fs.readFile(footer, (err, dataFooter) => {
                     if (err) { console.log('что-то с footer') };
 
-                    fs.readFile(index, (err, dataIndex) => {
-                        if (err) { console.log('ошибка при переписывании')}
-                        const rewrite = dataIndex.toString().replace(/{{header}}/g, dataHeader.toString()).replace(/{{articles}}/g, dataArticles.toString()).replace(/{{footer}}/g, dataFooter.toString());
-                        fs.writeFile(index, rewrite, (err) => {
-                            if (err) { console.log('ошибка перезаписи') };
-                        })
+                    fs.readFile(about, (err, dataAbout) => {
+                        if (err) {
+                            fs.readFile(index, (err, dataIndex) => {
+                                if (err) { console.log('ошибка при переписывании')}
+                                const rewrite = dataIndex.toString().replace(/{{header}}/g, dataHeader.toString()).replace(/{{articles}}/g, dataArticles.toString()).replace(/{{footer}}/g, dataFooter.toString());
+                                fs.writeFile(index, rewrite, (err) => {
+                                    if (err) { console.log('ошибка перезаписи') };
+                                })
+                            })
+                        } else {
+                            fs.readFile(index, (err, dataIndex) => {
+                                if (err) { console.log('ошибка при переписывании')}
+                                const rewrite = dataIndex.toString().replace(/{{header}}/g, dataHeader.toString()).replace(/{{articles}}/g, dataArticles.toString()).replace(/{{footer}}/g, dataFooter.toString()).replace(/{{about}}/g, dataAbout.toString());
+                                fs.writeFile(index, rewrite, (err) => {
+                                    if (err) { console.log('ошибка перезаписи') };
+                                })
+                            })
+                        }
                     })
                 })
             })
