@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const source = '04-copy-directory/files';
-const destination = `\\04-copy-directory\\copy-files`;
+const destination = `\\04-copy-directory\\files-copy`;
 
 function copyDir() {
     fs.stat(path.resolve() + destination, (err) => {
