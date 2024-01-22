@@ -7,7 +7,10 @@ rl.setPrompt('Запись >');
 rl.prompt();
 
 rl.on('line', function(text) {
-    if (text.trim() === 'stop') rl.close()
+    if (text.trim() === 'exit') {
+        console.log('всего хо-ро-ше-го');
+        process.exit(0);
+    }
     fs.appendFile(textFile, text, (err) => {
         if (err) {
             throw err;
